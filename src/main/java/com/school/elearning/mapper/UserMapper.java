@@ -10,9 +10,9 @@ import org.springframework.stereotype.Component;
 @Mapper(componentModel = "spring")
 public interface UserMapper {
 
-    UserRequest toEntity(UserRequest userRequest);
+    User toEntity(UserRequest userRequest);
 
-    User toResponse(UserResponse userResponse);
+    UserResponse toResponse(User user);
 
     void updateUser(UserRequest userRequest);
 
