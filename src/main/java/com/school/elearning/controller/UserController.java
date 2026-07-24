@@ -4,6 +4,7 @@ package com.school.elearning.controller;
 import com.school.elearning.dto.UserRequest;
 import com.school.elearning.dto.UserResponse;
 import com.school.elearning.service.UserService;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,7 +19,7 @@ public class UserController {
     }
 
     @PostMapping("/create")
-    public UserResponse create(@RequestBody UserRequest userRequest) {
+    public UserResponse create( @Valid @RequestBody UserRequest userRequest) {
         return userService.createUser(userRequest);
     }
 
@@ -38,7 +39,7 @@ public class UserController {
         userService.deleteUserById(id);
     }
     @PutMapping("/{id}")
-    public UserResponse update(@PathVariable Long id, @RequestBody UserRequest userRequest) {
+    public UserResponse update(@PathVariable Long id,@Valid @RequestBody UserRequest userRequest) {
         return userService.updateUser(userRequest, id);
     }
 }
