@@ -1,4 +1,4 @@
-package com.school.elearning.dto;
+package com.school.elearning.dto.response;
 
 import com.school.elearning.enums.UserRole;
 

@@ -1,8 +1,8 @@
 package com.school.elearning.controller;
 
 
-import com.school.elearning.dto.UserRequest;
-import com.school.elearning.dto.UserResponse;
+import com.school.elearning.dto.request.UserRequest;
+import com.school.elearning.dto.response.UserResponse;
 import com.school.elearning.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;

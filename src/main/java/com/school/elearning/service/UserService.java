@@ -1,8 +1,8 @@
 package com.school.elearning.service;
 
 
-import com.school.elearning.dto.UserRequest;
-import com.school.elearning.dto.UserResponse;
+import com.school.elearning.dto.request.UserRequest;
+import com.school.elearning.dto.response.UserResponse;
 import com.school.elearning.entity.User;
 import com.school.elearning.mapper.UserMapper;
 import com.school.elearning.repository.UserRepository;

@@ -7,6 +7,8 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 
+import java.util.List;
+
 @Entity
 @Getter
 @Setter
@@ -29,4 +31,7 @@ public class User {
     @Enumerated(EnumType.STRING)
     @Column(name = "role" ,  nullable = false)
     private UserRole role;
+
+    @OneToMany(mappedBy = "createdBy")
+    private List<LearningPath> learningPaths;
 }

@@ -1,8 +1,7 @@
-package com.school.elearning.dto;
+package com.school.elearning.dto.request;
 
 import com.school.elearning.enums.UserRole;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
