@@ -1,16 +1,18 @@
 package com.school.elearning.service;
 
 
-import com.school.elearning.dto.UserRequest;
-import com.school.elearning.dto.UserResponse;
+import com.school.elearning.dto.request.UserRequest;
+import com.school.elearning.dto.response.UserResponse;
 import com.school.elearning.entity.User;
 import com.school.elearning.mapper.UserMapper;
 import com.school.elearning.repository.UserRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
+@Transactional
 public class UserService {
     private final UserRepository userRepository;
     private final UserMapper userMapper;
@@ -27,13 +29,16 @@ public class UserService {
         return userResponse;
     }
 
+
+    @Transactional(readOnly = true)
     public UserResponse getUserById(Long id) {
         User user = userRepository.findById(id)
-                .orElseThrow(null);
+                .orElseThrow();
         return userMapper.toResponse(user);
 
     }
 
+    @Transactional(readOnly = true)
     public List<UserResponse> getAllUsers() {
         return userRepository.findAll()
                 .stream()
@@ -43,8 +48,8 @@ public class UserService {
 
     public UserResponse updateUser(UserRequest userRequest , Long id) {
         User user = userRepository.findById(id)
-                .orElseThrow(null);
-        userMapper.updateUser(userRequest);
+                .orElseThrow();
+        userMapper.updateUser(userRequest , user);
         UserResponse userResponse = userMapper.toResponse(user);
         return userResponse;
     }
@@ -52,7 +57,7 @@ public class UserService {
 
     public void deleteUserById(Long id) {
         User user = userRepository.findById(id)
-                .orElseThrow(null);
+                .orElseThrow();
         userRepository.delete(user);
     }
 }
