@@ -4,6 +4,8 @@ import com.school.elearning.enums.LearningPathLevel;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "learning_paths")
 @Getter
@@ -36,4 +38,7 @@ public class LearningPath {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "created_by_id", nullable = false)
     private User createdBy;
+
+    @OneToMany(mappedBy = "learningPath")
+    private List<Model> models;
 }

@@ -1,9 +1,9 @@
 package com.school.elearning.service;
 
-
 import com.school.elearning.dto.request.UserRequest;
 import com.school.elearning.dto.response.UserResponse;
 import com.school.elearning.entity.User;
+import com.school.elearning.exception.RessourceNotFoundException;
 import com.school.elearning.mapper.UserMapper;
 import com.school.elearning.repository.UserRepository;
 import org.springframework.stereotype.Service;
@@ -24,18 +24,15 @@ public class UserService {
 
     public UserResponse createUser(UserRequest userRequest) {
         User user = userMapper.toEntity(userRequest);
-        User user1Created = userRepository.save(user);
-        UserResponse userResponse = userMapper.toResponse(user1Created);
-        return userResponse;
+        User savedUser = userRepository.save(user);
+        return userMapper.toResponse(savedUser);
     }
-
 
     @Transactional(readOnly = true)
     public UserResponse getUserById(Long id) {
         User user = userRepository.findById(id)
-                .orElseThrow();
+                .orElseThrow(() -> new RessourceNotFoundException("User not found with id: " + id));
         return userMapper.toResponse(user);
-
     }
 
     @Transactional(readOnly = true)
@@ -46,18 +43,16 @@ public class UserService {
                 .toList();
     }
 
-    public UserResponse updateUser(UserRequest userRequest , Long id) {
+    public UserResponse updateUser(UserRequest userRequest, Long id) {
         User user = userRepository.findById(id)
-                .orElseThrow();
-        userMapper.updateUser(userRequest , user);
-        UserResponse userResponse = userMapper.toResponse(user);
-        return userResponse;
+                .orElseThrow(() -> new RessourceNotFoundException("User not found with id: " + id));
+        userMapper.updateUser(userRequest, user);
+        return userMapper.toResponse(user);
     }
-
 
     public void deleteUserById(Long id) {
         User user = userRepository.findById(id)
-                .orElseThrow();
+                .orElseThrow(() -> new RessourceNotFoundException("User not found with id: " + id));
         userRepository.delete(user);
     }
 }
