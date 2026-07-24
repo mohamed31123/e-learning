@@ -4,9 +4,10 @@ import com.school.elearning.dto.UserRequest;
 import com.school.elearning.dto.UserResponse;
 import com.school.elearning.entity.User;
 import org.mapstruct.Mapper;
+import org.mapstruct.MappingTarget;
 import org.springframework.stereotype.Component;
 
-@Component
+
 @Mapper(componentModel = "spring")
 public interface UserMapper {
 
@@ -14,6 +15,6 @@ public interface UserMapper {
 
     UserResponse toResponse(User user);
 
-    void updateUser(UserRequest userRequest);
+    void updateUser(UserRequest userRequest , @MappingTarget User user);
 
 }

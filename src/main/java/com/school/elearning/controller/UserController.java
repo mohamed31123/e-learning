@@ -5,12 +5,13 @@ import com.school.elearning.dto.UserRequest;
 import com.school.elearning.dto.UserResponse;
 import com.school.elearning.service.UserService;
 import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/user/api")
+@RequestMapping("/api/v1/users")
 public class UserController {
     private final UserService userService;
 
@@ -19,6 +20,7 @@ public class UserController {
     }
 
     @PostMapping("/create")
+    @ResponseStatus(HttpStatus.CREATED)
     public UserResponse create( @Valid @RequestBody UserRequest userRequest) {
         return userService.createUser(userRequest);
     }
@@ -34,6 +36,7 @@ public class UserController {
     }
 
     @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteById(@PathVariable Long id) {
 
         userService.deleteUserById(id);

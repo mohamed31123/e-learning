@@ -13,6 +13,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
+@Builder
 @Table(name = "users")
 public class User {
     @Id
@@ -21,11 +22,11 @@ public class User {
     @Column(name = "fullName" , nullable = false)
     private String fullName ;
     @Column(name = "email" ,  nullable = false , unique = true)
-    @Email(message = "Email not supported")
     private String email;
-    @Size(min = 6 , max = 30)
+    @Column(name = "password" ,  nullable = false)
     private String password;
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "role" ,  nullable = false)
     private UserRole role;
 }
