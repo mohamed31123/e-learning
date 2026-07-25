@@ -11,7 +11,8 @@ public record LessonRequest(
         @NotBlank(message = "content type is required")
         String contentType ,
         @NotNull(message = "order index is required")
-        int orderIndex
+        int orderIndex ,
+        Long courseId
 
 ) {
 

@@ -16,10 +16,10 @@ public interface LessonMapper {
     Lesson toEntity(LessonRequest request);
 
     @Mapping(target = "id", ignore = true)
-    void updateLesson(LessonRequest request);
+    void updateLesson(LessonRequest request ,  @MappingTarget Lesson lesson);
 
     @Mapping(source = "course.id", target = "courseId")
     @Mapping(target = "course" , ignore = true)
-    LessonResponse toResponse(LessonRequest request , @MappingTarget Lesson lesson);
+    LessonResponse toResponse(Lesson lesson );
 
 }
