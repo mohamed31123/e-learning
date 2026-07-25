@@ -13,7 +13,7 @@ public class Course {
     private Long id;
     @Column(nullable = false , name = "title")
     private String title;
-    @Column(name = "descreptio" , nullable = false)
+    @Column(name = "description" , nullable = false)
     private String description;
     @Column(unique = true, nullable = false)
     private int orderIndex ;
