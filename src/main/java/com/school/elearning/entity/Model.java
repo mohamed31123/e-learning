@@ -3,6 +3,8 @@ package com.school.elearning.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "models")
 @Getter
@@ -24,4 +26,7 @@ public class Model {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "learning_path_id", nullable = false)
     private LearningPath learningPath;
+
+    @OneToMany(mappedBy = "model")
+    private List<Course> courses ;
 }
