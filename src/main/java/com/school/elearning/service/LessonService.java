@@ -4,14 +4,17 @@ import com.school.elearning.dto.request.LessonRequest;
 import com.school.elearning.dto.response.LessonResponse;
 import com.school.elearning.entity.Course;
 import com.school.elearning.entity.Lesson;
+import com.school.elearning.exception.RessourceNotFoundException;
 import com.school.elearning.mapper.LessonMapper;
 import com.school.elearning.repository.CourseRepository;
 import com.school.elearning.repository.LessonRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
+@Transactional
 public class LessonService {
     private final LessonRepository lessonRepository;
     private final CourseRepository courseRepository;
@@ -25,25 +28,34 @@ public class LessonService {
 
     public LessonResponse createLesson(LessonRequest lessonRequest) {
         Course course = courseRepository.findById(lessonRequest.courseId())
-                .orElseThrow(() -> new RuntimeException("course not found with id : " + lessonRequest.courseId()));
+                .orElseThrow(() -> new RessourceNotFoundException("Course not found with id: " + lessonRequest.courseId()));
         Lesson lesson = lessonMapper.toEntity(lessonRequest);
         lesson.setCourse(course);
-        lessonRepository.save(lesson);
+        Lesson savedLesson = lessonRepository.save(lesson);
+        return lessonMapper.toResponse(savedLesson);
+    }
+
+    public LessonResponse updateLesson(LessonRequest lessonRequest, Long id) {
+        Lesson lesson = lessonRepository.findById(id)
+                .orElseThrow(() -> new RessourceNotFoundException("Lesson not found with id: " + id));
+
+        if (lesson.getCourse() == null || !lesson.getCourse().getId().equals(lessonRequest.courseId())) {
+            Course course = courseRepository.findById(lessonRequest.courseId())
+                    .orElseThrow(() -> new RessourceNotFoundException("Course not found with id: " + lessonRequest.courseId()));
+            lesson.setCourse(course);
+        }
+
+        lessonMapper.updateLesson(lessonRequest, lesson);
         return lessonMapper.toResponse(lesson);
     }
 
-    public LessonResponse updateLesson(LessonRequest lessonRequest , Long id) {
-        Lesson lesson = lessonRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("lesson not found with id : " + id));
-        lessonMapper.updateLesson(lessonRequest ,lesson);
-        lessonRepository.save(lesson);
-        return lessonMapper.toResponse(lesson);
-    }
     public void deleteLesson(Long id) {
         Lesson lesson = lessonRepository.findById(id)
-                        .orElseThrow(() -> new RuntimeException("lesson not found with id : " + id));
-        lessonRepository.deleteById(id);
+                .orElseThrow(() -> new RessourceNotFoundException("Lesson not found with id: " + id));
+        lessonRepository.delete(lesson);
     }
+
+    @Transactional(readOnly = true)
     public List<LessonResponse> findAllLessons() {
         return lessonRepository.findAll()
                 .stream()
@@ -51,10 +63,10 @@ public class LessonService {
                 .toList();
     }
 
-    public LessonResponse getlessonById(Long id) {
+    @Transactional(readOnly = true)
+    public LessonResponse getLessonById(Long id) {
         Lesson lesson = lessonRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("lesson not found with id : " + id));
+                .orElseThrow(() -> new RessourceNotFoundException("Lesson not found with id: " + id));
         return lessonMapper.toResponse(lesson);
     }
-
 }
