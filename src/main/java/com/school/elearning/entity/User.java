@@ -33,4 +33,8 @@ public class User {
 
     @OneToMany(mappedBy = "createdBy")
     private List<LearningPath> learningPaths;
+
+    @OneToMany(mappedBy = "user")
+    private List<Enrollment> enrollments;
+
 }
