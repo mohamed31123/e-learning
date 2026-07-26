@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 
 public record EnrollmentRequest(
         LocalDateTime enrolledAt ,
-        EnrollmentStatus status
+        EnrollmentStatus status ,
+        Long userId
 ) {
 }

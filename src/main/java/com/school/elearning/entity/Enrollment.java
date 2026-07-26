@@ -4,11 +4,15 @@ package com.school.elearning.entity;
 import com.school.elearning.enums.EnrollmentStatus;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "enrollments")
+@Getter @Setter
+@NoArgsConstructor @AllArgsConstructor
+@Builder
 public class Enrollment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
