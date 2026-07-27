@@ -7,7 +7,11 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 
-@Mapper(componentModel = "spring")
+import java.util.List;
+
+@Mapper(componentModel = "spring",
+uses = CourseMapper.class
+)
 public interface ModelMapper {
 
     @Mapping(target = "id", ignore = true)
@@ -20,4 +24,5 @@ public interface ModelMapper {
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "learningPath", ignore = true)
     void updateModel(ModelRequest modelRequest, @MappingTarget Model model);
+    List<ModelResponse> toResponseList(List<Model> models);
 }

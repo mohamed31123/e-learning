@@ -8,6 +8,8 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 
+import java.util.List;
+
 @Mapper(componentModel = "spring")
 public interface LessonMapper {
 
@@ -21,5 +23,6 @@ public interface LessonMapper {
     @Mapping(source = "course.id", target = "courseId")
     @Mapping(target = "course" , ignore = true)
     LessonResponse toResponse(Lesson lesson );
+    List<LessonResponse> toResponseList(List<Lesson> lessons);
 
 }
