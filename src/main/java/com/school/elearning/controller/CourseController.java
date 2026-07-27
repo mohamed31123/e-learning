@@ -5,6 +5,7 @@ import com.school.elearning.dto.response.CourseResponse;
 import com.school.elearning.service.CourseService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,9 +21,10 @@ public class CourseController {
     }
 
     @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public CourseResponse createCourse(@Valid @RequestBody CourseRequest courseRequest) {
-        return courseService.createCourse(courseRequest);
+    public ResponseEntity<CourseResponse> createCourse(@Valid @RequestBody CourseRequest courseRequest) {
+        return ResponseEntity.
+                status(HttpStatus.CREATED).
+                body(courseService.createCourse(courseRequest));
     }
 
     @GetMapping
@@ -31,18 +33,23 @@ public class CourseController {
     }
 
     @GetMapping("/{id}")
-    public CourseResponse getCourse(@PathVariable Long id) {
-        return courseService.findCourseById(id);
+    public ResponseEntity<CourseResponse> getCourse(@PathVariable Long id) {
+        return ResponseEntity.
+                status(HttpStatus.OK).
+                body(courseService.findCourseById(id));
     }
 
     @PutMapping("/{id}")
-    public CourseResponse updateCourse(@PathVariable Long id, @Valid @RequestBody CourseRequest courseRequest) {
-        return courseService.updateCourse(courseRequest, id);
+    public ResponseEntity<CourseResponse> updateCourse(@PathVariable Long id, @Valid @RequestBody CourseRequest courseRequest) {
+        return  ResponseEntity.
+                status(HttpStatus.OK)
+                .body(courseService.updateCourse(courseRequest, id));
     }
 
     @DeleteMapping("/{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteCourse(@PathVariable Long id) {
-        courseService.deleteCourse(id);
+    public ResponseEntity<Void> deleteCourse(@PathVariable Long id) {
+       courseService.deleteCourse(id);
+       return ResponseEntity.noContent().build();
+
     }
 }
