@@ -5,6 +5,7 @@ import com.school.elearning.dto.response.ModelResponse;
 import com.school.elearning.service.ModelService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,24 +21,23 @@ public class ModelController {
     }
 
     @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public ModelResponse create(@Valid @RequestBody ModelRequest request) {
-        return modelService.createModel(request);
+    public ResponseEntity<ModelResponse> create(@Valid @RequestBody ModelRequest request) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(modelService.createModel(request));
     }
 
     @GetMapping
-    public List<ModelResponse> getAll() {
-        return modelService.findAll();
+    public ResponseEntity<List<ModelResponse>> getAll() {
+        return ResponseEntity.status(HttpStatus.OK).body(modelService.findAll());
     }
 
     @GetMapping("/{id}")
-    public ModelResponse getById(@PathVariable Long id) {
-        return modelService.getModelById(id);
+    public ResponseEntity<ModelResponse> getById(@PathVariable Long id) {
+        return ResponseEntity.status(HttpStatus.OK).body(modelService.getModelById(id));
     }
 
     @PutMapping("/{id}")
-    public ModelResponse update(@PathVariable Long id, @Valid @RequestBody ModelRequest request) {
-        return modelService.updateModel(id, request);
+    public ResponseEntity<ModelResponse> update(@PathVariable Long id, @Valid @RequestBody ModelRequest request) {
+        return ResponseEntity.status(HttpStatus.OK).body(modelService.updateModel(id , request));
     }
 
     @DeleteMapping("/{id}")

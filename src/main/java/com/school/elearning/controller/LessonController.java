@@ -5,6 +5,7 @@ import com.school.elearning.dto.response.LessonResponse;
 import com.school.elearning.service.LessonService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,14 +20,14 @@ public class LessonController {
     }
 
     @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public LessonResponse createLesson(@Valid @RequestBody LessonRequest lessonRequest) {
-        return lessonService.createLesson(lessonRequest);
+
+    public ResponseEntity<LessonResponse> createLesson(@Valid @RequestBody LessonRequest lessonRequest) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(lessonService.createLesson(lessonRequest));
     }
 
     @PutMapping("/{id}")
-    public LessonResponse updateLesson(@Valid @RequestBody LessonRequest lessonRequest, @PathVariable Long id) {
-        return lessonService.updateLesson(lessonRequest, id);
+    public ResponseEntity<LessonResponse> updateLesson(@Valid @RequestBody LessonRequest lessonRequest, @PathVariable Long id) {
+        return ResponseEntity.status(HttpStatus.OK).body(lessonService.updateLesson(lessonRequest, id));
     }
 
     @DeleteMapping("/{id}")
@@ -36,12 +37,12 @@ public class LessonController {
     }
 
     @GetMapping("/{id}")
-    public LessonResponse findLessonById(@PathVariable Long id) {
-        return lessonService.getLessonById(id);
+    public ResponseEntity<LessonResponse> findLessonById(@PathVariable Long id) {
+        return ResponseEntity.status(HttpStatus.OK).body(lessonService.getLessonById(id));
     }
 
     @GetMapping
-    public List<LessonResponse> findLessons() {
-        return lessonService.findAllLessons();
+    public ResponseEntity<List<LessonResponse>> findLessons() {
+        return ResponseEntity.status(HttpStatus.OK).body(lessonService.findAllLessons());
     }
 }
