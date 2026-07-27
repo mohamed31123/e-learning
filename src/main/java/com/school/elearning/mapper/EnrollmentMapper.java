@@ -8,6 +8,8 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 
+import java.util.List;
+
 @Mapper(componentModel = "spring")
 public interface EnrollmentMapper {
     @Mapping(target = "id" , ignore = true)
@@ -16,6 +18,7 @@ public interface EnrollmentMapper {
     @Mapping(source = "user.fullName" , target = "userName")
     @Mapping(target = "userId" , ignore = true)
     EnrollmentResponse toEnrollmentResponse(Enrollment enrollment);
+    List<EnrollmentResponse> toEnrollmentResponseList(List<Enrollment> enrollments);
     @Mapping(target = "id" , ignore = true)
     void updateEnrollment(EnrollmentRequest request ,@MappingTarget Enrollment enrollment);
 }

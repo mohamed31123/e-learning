@@ -10,8 +10,10 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "enrollments")
-@Getter @Setter
-@NoArgsConstructor @AllArgsConstructor
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Builder
 public class Enrollment {
     @Id
@@ -22,7 +24,7 @@ public class Enrollment {
     @Enumerated(EnumType.STRING)
     @NotNull(message = "Status is required")
     private EnrollmentStatus status;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "userId")
     private User user;
 

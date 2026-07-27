@@ -7,12 +7,15 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 
+import java.util.List;
+
 @Mapper(componentModel = "spring")
 public interface CourseMapper {
 
     @Mapping(source = "model.id", target = "modelId")
     @Mapping(source = "model.title", target = "modelTitle")
     CourseResponse toResponse(Course course);
+    List<CourseResponse> toResponseList(List<Course> courses);
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "model", ignore = true)
