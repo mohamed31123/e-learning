@@ -4,6 +4,7 @@ import com.school.elearning.dto.request.LessonRequest;
 import com.school.elearning.dto.response.LessonResponse;
 import com.school.elearning.service.LessonService;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,13 +12,12 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/api/v1/lessons")
 public class LessonController {
     private final LessonService lessonService;
 
-    public LessonController(LessonService lessonService) {
-        this.lessonService = lessonService;
-    }
+
 
     @PostMapping
 

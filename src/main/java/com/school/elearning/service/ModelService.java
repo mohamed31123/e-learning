@@ -8,6 +8,7 @@ import com.school.elearning.exception.RessourceNotFoundException;
 import com.school.elearning.mapper.ModelMapper;
 import com.school.elearning.repository.LearningPathRepository;
 import com.school.elearning.repository.ModelRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,19 +16,14 @@ import java.util.List;
 
 @Service
 @Transactional
+@RequiredArgsConstructor
 public class ModelService {
 
     private final ModelRepository modelRepository;
     private final LearningPathRepository learningPathRepository;
     private final ModelMapper modelMapper;
 
-    public ModelService(ModelRepository modelRepository,
-                        LearningPathRepository learningPathRepository,
-                        ModelMapper modelMapper) {
-        this.modelRepository = modelRepository;
-        this.learningPathRepository = learningPathRepository;
-        this.modelMapper = modelMapper;
-    }
+
 
     @Transactional(readOnly = true)
     public ModelResponse getModelById(Long id) {

@@ -4,6 +4,7 @@ import com.school.elearning.dto.request.ModelRequest;
 import com.school.elearning.dto.response.ModelResponse;
 import com.school.elearning.service.ModelService;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,14 +12,12 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/api/v1/models")
 public class ModelController {
 
     private final ModelService modelService;
 
-    public ModelController(ModelService modelService) {
-        this.modelService = modelService;
-    }
 
     @PostMapping
     public ResponseEntity<ModelResponse> create(@Valid @RequestBody ModelRequest request) {

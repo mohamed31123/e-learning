@@ -8,6 +8,7 @@ import com.school.elearning.exception.RessourceNotFoundException;
 import com.school.elearning.mapper.LearningPathMapper;
 import com.school.elearning.repository.LearningPathRepository;
 import com.school.elearning.repository.UserRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,19 +16,14 @@ import java.util.List;
 
 @Service
 @Transactional
+@RequiredArgsConstructor
 public class LearningPathService {
 
     private final LearningPathRepository learningPathRepository;
     private final UserRepository userRepository;
     private final LearningPathMapper learningPathMapper;
 
-    public LearningPathService(LearningPathRepository learningPathRepository,
-                               UserRepository userRepository,
-                               LearningPathMapper learningPathMapper) {
-        this.learningPathRepository = learningPathRepository;
-        this.userRepository = userRepository;
-        this.learningPathMapper = learningPathMapper;
-    }
+
 
     public LearningPathResponse createLearningPath(LearningPathRequest request) {
         User creator = userRepository.findById(request.createdById())

@@ -8,6 +8,7 @@ import com.school.elearning.exception.RessourceNotFoundException;
 import com.school.elearning.mapper.LessonMapper;
 import com.school.elearning.repository.CourseRepository;
 import com.school.elearning.repository.LessonRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,16 +16,13 @@ import java.util.List;
 
 @Service
 @Transactional
+@RequiredArgsConstructor
 public class LessonService {
     private final LessonRepository lessonRepository;
     private final CourseRepository courseRepository;
     private final LessonMapper lessonMapper;
 
-    public LessonService(LessonRepository lessonRepository, CourseRepository courseRepository, LessonMapper lessonMapper) {
-        this.lessonRepository = lessonRepository;
-        this.courseRepository = courseRepository;
-        this.lessonMapper = lessonMapper;
-    }
+
 
     public LessonResponse createLesson(LessonRequest lessonRequest) {
         Course course = courseRepository.findById(lessonRequest.courseId())

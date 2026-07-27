@@ -5,6 +5,7 @@ import com.school.elearning.dto.request.UserRequest;
 import com.school.elearning.dto.response.UserResponse;
 import com.school.elearning.service.UserService;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,13 +13,12 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/api/v1/users")
 public class UserController {
     private final UserService userService;
 
-    public UserController(UserService userService) {
-        this.userService = userService;
-    }
+
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)

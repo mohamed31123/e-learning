@@ -8,12 +8,14 @@ import com.school.elearning.exception.RessourceNotFoundException;
 import com.school.elearning.mapper.CourseMapper;
 import com.school.elearning.repository.CourseRepository;
 import com.school.elearning.repository.ModelRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 @Transactional
 public class CourseService {
 
@@ -21,13 +23,7 @@ public class CourseService {
     private final ModelRepository modelRepository;
     private final CourseMapper courseMapper;
 
-    public CourseService(CourseRepository courseRepository,
-                         ModelRepository modelRepository,
-                         CourseMapper courseMapper) {
-        this.courseRepository = courseRepository;
-        this.modelRepository = modelRepository;
-        this.courseMapper = courseMapper;
-    }
+
 
     public CourseResponse createCourse(CourseRequest request) {
         Model model = modelRepository.findById(request.modelId())

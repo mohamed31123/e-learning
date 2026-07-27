@@ -7,21 +7,19 @@ import com.school.elearning.entity.User;
 import com.school.elearning.mapper.EnrollmentMapper;
 import com.school.elearning.repository.EnrollmentRepository;
 import com.school.elearning.repository.UserRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class EnrollmentService {
     private final EnrollmentRepository enrollmentRepository;
     private final EnrollmentMapper enrollmentMapper;
     private final UserRepository userRepository;
 
-    public EnrollmentService(EnrollmentRepository enrollmentRepository, EnrollmentMapper enrollmentMapper, UserRepository userRepository) {
-        this.enrollmentRepository = enrollmentRepository;
-        this.enrollmentMapper = enrollmentMapper;
-        this.userRepository = userRepository;
-    }
+
 
     public EnrollmentResponse createEnrollment(EnrollmentRequest request) {
         User user = userRepository.findById(request.userId())

@@ -4,6 +4,7 @@ import com.school.elearning.dto.request.LearningPathRequest;
 import com.school.elearning.dto.response.LearningPathResponse;
 import com.school.elearning.service.LearningPathService;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,14 +12,13 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/api/v1/learning-paths")
 public class LearningPathController {
 
     private final LearningPathService learningPathService;
 
-    public LearningPathController(LearningPathService learningPathService) {
-        this.learningPathService = learningPathService;
-    }
+
 
     @PostMapping
     public ResponseEntity<LearningPathResponse> create(@Valid @RequestBody LearningPathRequest request) {
