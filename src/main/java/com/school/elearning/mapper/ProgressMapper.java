@@ -13,8 +13,6 @@ public interface ProgressMapper {
     @Mapping(target = "id" , ignore = true)
     Progress toProgressEntity(ProgressRequest progressRequest);
     @Mapping(target = "lessonTitle" , source = "lesson.title")
-    @Mapping(target = "lesson" , ignore = true)
-    @Mapping(target = "enrollment"  , ignore = true)
     ProgressReponse toProgressReponse(Progress progress);
 
     @Mapping(target = "id" , ignore = true)

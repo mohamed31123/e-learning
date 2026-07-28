@@ -3,16 +3,18 @@ package com.school.elearning.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "courses")
+@Table(name = "quizzes")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Course {
+public class Quiz {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -20,16 +22,14 @@ public class Course {
     @Column(name = "title", nullable = false)
     private String title;
 
-    @Column(name = "description", nullable = false)
-    private String description;
-
-    @Column(name = "order_index", nullable = false)
-    private int orderIndex;
+    @Column(name = "passing_score", nullable = false)
+    private Double passingScore;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "model_id")
+    @JoinColumn(name = "module_id", nullable = false)
     private Model model;
 
-    @OneToMany(mappedBy = "course")
-    private List<Lesson> lessons;
+    @Builder.Default
+    @OneToMany(mappedBy = "quiz", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Question> questions = new ArrayList<>();
 }
