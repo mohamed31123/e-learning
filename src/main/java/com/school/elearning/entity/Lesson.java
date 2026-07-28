@@ -34,6 +34,5 @@ public class Lesson {
     @JoinColumn(name = "course_id", nullable = false)
     private Course course;
 
-    @OneToMany(mappedBy = "lesson")
-    private List<Lesson> lessons;
+
 }

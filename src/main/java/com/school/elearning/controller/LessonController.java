@@ -30,11 +30,7 @@ public class LessonController {
         return ResponseEntity.status(HttpStatus.OK).body(lessonService.updateLesson(lessonRequest, id));
     }
 
-    @DeleteMapping("/{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteLesson(@PathVariable Long id) {
-        lessonService.deleteLesson(id);
-    }
+
 
     @GetMapping("/{id}")
     public ResponseEntity<LessonResponse> findLessonById(@PathVariable Long id) {
@@ -44,5 +40,10 @@ public class LessonController {
     @GetMapping
     public ResponseEntity<List<LessonResponse>> findLessons() {
         return ResponseEntity.status(HttpStatus.OK).body(lessonService.findAllLessons());
+    }
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteLesson(@PathVariable Long id) {
+        lessonService.deleteLesson(id);
     }
 }

@@ -1,13 +1,11 @@
 package com.school.elearning.repository;
 
-import com.school.elearning.entity.User;
+import com.school.elearning.entity.Progress;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.Optional;
-
 
 @Repository
-public interface UserRepository extends JpaRepository<User, Long> {
-
+public interface ProgressRepository extends JpaRepository<Progress, Long>
+{
 }

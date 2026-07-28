@@ -2,16 +2,23 @@ package com.school.elearning.entity;
 
 
 import jakarta.persistence.*;
+import lombok.*;
+import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
 
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Progress {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(nullable = false)
-    private boolean completed ;
+    private boolean isCompleted ;
     @Column(nullable = false)
     private LocalDateTime completedAt;
 
