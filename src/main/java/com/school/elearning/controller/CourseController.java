@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import org.springframework.security.access.prepost.PreAuthorize;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/courses")
@@ -18,9 +20,8 @@ public class CourseController {
 
     private final CourseService courseService;
 
-
-
     @PostMapping
+    @PreAuthorize("hasAnyRole('INSTRUCTOR', 'TEACHER', 'ADMIN')")
     public ResponseEntity<CourseResponse> createCourse(@Valid @RequestBody CourseRequest courseRequest) {
         return ResponseEntity.
                 status(HttpStatus.CREATED).
@@ -40,6 +41,7 @@ public class CourseController {
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize("hasAnyRole('INSTRUCTOR', 'TEACHER', 'ADMIN')")
     public ResponseEntity<CourseResponse> updateCourse(@PathVariable Long id, @Valid @RequestBody CourseRequest courseRequest) {
         return  ResponseEntity.
                 status(HttpStatus.OK)
@@ -47,6 +49,7 @@ public class CourseController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAnyRole('INSTRUCTOR', 'TEACHER', 'ADMIN')")
     public ResponseEntity<Void> deleteCourse(@PathVariable Long id) {
        courseService.deleteCourse(id);
        return ResponseEntity.noContent().build();

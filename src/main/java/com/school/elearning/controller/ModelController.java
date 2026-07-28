@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import org.springframework.security.access.prepost.PreAuthorize;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/models")
@@ -18,8 +20,8 @@ public class ModelController {
 
     private final ModelService modelService;
 
-
     @PostMapping
+    @PreAuthorize("hasAnyRole('INSTRUCTOR', 'TEACHER', 'ADMIN')")
     public ResponseEntity<ModelResponse> create(@Valid @RequestBody ModelRequest request) {
         return ResponseEntity.status(HttpStatus.CREATED).body(modelService.createModel(request));
     }
@@ -35,11 +37,13 @@ public class ModelController {
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize("hasAnyRole('INSTRUCTOR', 'TEACHER', 'ADMIN')")
     public ResponseEntity<ModelResponse> update(@PathVariable Long id, @Valid @RequestBody ModelRequest request) {
         return ResponseEntity.status(HttpStatus.OK).body(modelService.updateModel(id , request));
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAnyRole('INSTRUCTOR', 'TEACHER', 'ADMIN')")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable Long id) {
         modelService.deleteModelById(id);

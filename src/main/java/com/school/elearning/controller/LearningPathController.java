@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import java.util.List;
 
 @RestController
@@ -18,9 +19,8 @@ public class LearningPathController {
 
     private final LearningPathService learningPathService;
 
-
-
     @PostMapping
+    @PreAuthorize("hasAnyRole('INSTRUCTOR', 'TEACHER', 'ADMIN')")
     public ResponseEntity<LearningPathResponse> create(@Valid @RequestBody LearningPathRequest request) {
         return ResponseEntity.
                 status(HttpStatus.CREATED).
@@ -42,6 +42,7 @@ public class LearningPathController {
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize("hasAnyRole('INSTRUCTOR', 'TEACHER', 'ADMIN')")
     public ResponseEntity<LearningPathResponse> update(@PathVariable Long id, @Valid @RequestBody LearningPathRequest request) {
         return ResponseEntity.
                 status(HttpStatus.OK).
@@ -49,6 +50,7 @@ public class LearningPathController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable Long id) {
         learningPathService.deleteLearningPath(id);

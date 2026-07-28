@@ -11,9 +11,12 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import org.springframework.security.access.prepost.PreAuthorize;
+
 @RestController
 @RequestMapping("/api/quiz-attempts")
 @RequiredArgsConstructor
+@PreAuthorize("hasAnyRole('LEARNER', 'STUDENT', 'ADMIN', 'INSTRUCTOR', 'TEACHER')")
 public class QuizAttemptController {
 
     private final QuizAttemptService quizAttemptService;
