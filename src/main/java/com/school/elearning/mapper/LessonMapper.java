@@ -21,7 +21,7 @@ public interface LessonMapper {
     void updateLesson(LessonRequest request ,  @MappingTarget Lesson lesson);
 
     @Mapping(source = "course.id", target = "courseId")
-    @Mapping(target = "course" , ignore = true)
+
     LessonResponse toResponse(Lesson lesson );
     List<LessonResponse> toResponseList(List<Lesson> lessons);
 
