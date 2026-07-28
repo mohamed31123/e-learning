@@ -10,7 +10,7 @@ import org.mapstruct.MappingTarget;
 
 import java.util.List;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring" , uses = {ProgressMapper.class})
 public interface LessonMapper {
 
     @Mapping(target = "course" , ignore = true)
