@@ -4,40 +4,48 @@ import com.school.elearning.dto.request.LearningPathRequest;
 import com.school.elearning.dto.response.LearningPathResponse;
 import com.school.elearning.service.LearningPathService;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/api/v1/learning-paths")
 public class LearningPathController {
 
     private final LearningPathService learningPathService;
 
-    public LearningPathController(LearningPathService learningPathService) {
-        this.learningPathService = learningPathService;
-    }
+
 
     @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public LearningPathResponse create(@Valid @RequestBody LearningPathRequest request) {
-        return learningPathService.createLearningPath(request);
+    public ResponseEntity<LearningPathResponse> create(@Valid @RequestBody LearningPathRequest request) {
+        return ResponseEntity.
+                status(HttpStatus.CREATED).
+                body(learningPathService.createLearningPath(request));
     }
 
     @GetMapping
-    public List<LearningPathResponse> getAll() {
-        return learningPathService.getAllLearningPaths();
+    public ResponseEntity<List<LearningPathResponse>> getAll() {
+        return ResponseEntity.
+                status(HttpStatus.OK).
+                body(learningPathService.getAllLearningPaths());
     }
 
     @GetMapping("/{id}")
-    public LearningPathResponse getById(@PathVariable Long id) {
-        return learningPathService.getLearningPathById(id);
+    public ResponseEntity<LearningPathResponse> getById(@PathVariable Long id) {
+        return ResponseEntity.
+                status(HttpStatus.OK).
+                body(learningPathService.getLearningPathById(id));
     }
 
     @PutMapping("/{id}")
-    public LearningPathResponse update(@PathVariable Long id, @Valid @RequestBody LearningPathRequest request) {
-        return learningPathService.updateLearningPath(id, request);
+    public ResponseEntity<LearningPathResponse> update(@PathVariable Long id, @Valid @RequestBody LearningPathRequest request) {
+        return ResponseEntity.
+                status(HttpStatus.OK).
+                body(learningPathService.updateLearningPath(id, request));
     }
 
     @DeleteMapping("/{id}")

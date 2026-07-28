@@ -5,34 +5,35 @@ import com.school.elearning.dto.request.UserRequest;
 import com.school.elearning.dto.response.UserResponse;
 import com.school.elearning.service.UserService;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/api/v1/users")
 public class UserController {
     private final UserService userService;
 
-    public UserController(UserService userService) {
-        this.userService = userService;
-    }
+
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public UserResponse create(@Valid @RequestBody UserRequest userRequest) {
-        return userService.createUser(userRequest);
+    public ResponseEntity<UserResponse> create(@Valid @RequestBody UserRequest userRequest) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(userService.createUser(userRequest));
     }
 
     @GetMapping
-    public List<UserResponse> getAll() {
-        return userService.getAllUsers();
+    public ResponseEntity<List<UserResponse>> getAll() {
+        return ResponseEntity.status(HttpStatus.OK).body(userService.getAllUsers());
     }
 
     @GetMapping("/{id}")
-    public UserResponse getById(@PathVariable Long id) {
-        return userService.getUserById(id);
+    public ResponseEntity<UserResponse> getById(@PathVariable Long id) {
+        return ResponseEntity.status(HttpStatus.OK).body(userService.getUserById(id));
     }
 
     @DeleteMapping("/{id}")
@@ -42,7 +43,7 @@ public class UserController {
         userService.deleteUserById(id);
     }
     @PutMapping("/{id}")
-    public UserResponse update(@PathVariable Long id,@Valid @RequestBody UserRequest userRequest) {
-        return userService.updateUser(userRequest, id);
+    public ResponseEntity<UserResponse> update(@PathVariable Long id,@Valid @RequestBody UserRequest userRequest) {
+        return ResponseEntity.status(HttpStatus.OK).body(userService.updateUser(userRequest , id));
     }
 }

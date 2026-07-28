@@ -5,27 +5,30 @@ import com.school.elearning.dto.request.EnrollmentRequest;
 import com.school.elearning.dto.response.EnrollmentResponse;
 import com.school.elearning.service.EnrollmentService;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/api/v1/enrollments")
 public class EnrollmentController {
     private final EnrollmentService enrollmentService;
-    public EnrollmentController(EnrollmentService enrollmentService) {
-        this.enrollmentService = enrollmentService;
-    }
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public EnrollmentResponse createEnrollment(@Valid @RequestBody EnrollmentRequest request){
-        return enrollmentService.createEnrollment(request);
+    public ResponseEntity<EnrollmentResponse> createEnrollment(@Valid @RequestBody EnrollmentRequest request){
+        return ResponseEntity.
+                status(HttpStatus.CREATED).
+                body(enrollmentService.createEnrollment(request));
     }
     @PutMapping("/{id}")
-    @ResponseStatus(HttpStatus.CREATED)
-    public EnrollmentResponse updateEnrollment( @PathVariable Long id ,@Valid @RequestBody EnrollmentRequest request){
-        return enrollmentService.updateEnrollment(id ,request);
+    public ResponseEntity<EnrollmentResponse> updateEnrollment( @PathVariable Long id ,@Valid @RequestBody EnrollmentRequest request){
+        return ResponseEntity.
+                status(HttpStatus.CREATED).
+                body(enrollmentService.updateEnrollment(id,request));
     }
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
@@ -33,14 +36,18 @@ public class EnrollmentController {
         enrollmentService.deleteEnrollment(id);
     }
     @GetMapping("/{id}")
-    @ResponseStatus(HttpStatus.OK)
-    public EnrollmentResponse getEnrollment(@PathVariable Long id){
-         return enrollmentService.findEnrollmentById(id);
+
+    public ResponseEntity<EnrollmentResponse> getEnrollment(@PathVariable Long id){
+         return ResponseEntity.
+                 status(HttpStatus.OK).
+                 body(enrollmentService.findEnrollmentById(id));
     }
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<EnrollmentResponse> getEnrollments(){
-        return  enrollmentService.findAllEnrollments();
+    public ResponseEntity<List<EnrollmentResponse>> getEnrollments(){
+          return ResponseEntity.
+                  status(HttpStatus.OK)
+                  .body(enrollmentService.findAllEnrollments());
     }
 
 }
