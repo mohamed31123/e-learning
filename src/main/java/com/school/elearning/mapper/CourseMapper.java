@@ -12,7 +12,7 @@ import java.util.List;
 @Mapper(componentModel = "spring")
 public interface CourseMapper {
 
-    @Mapping(source = "model.id", target = "modelId")
+
     @Mapping(source = "model.title", target = "modelTitle")
     CourseResponse toResponse(Course course);
     List<CourseResponse> toResponseList(List<Course> courses);

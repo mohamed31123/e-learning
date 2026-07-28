@@ -21,7 +21,11 @@ public class UserService {
 
 
 
-
+    public UserResponse createUser(UserRequest userRequest) {
+        User user = userMapper.toEntity(userRequest);
+        User savedUser = userRepository.save(user);
+        return userMapper.toResponse(savedUser);
+    }
 
     @Transactional(readOnly = true)
     public UserResponse getUserById(Long id) {
