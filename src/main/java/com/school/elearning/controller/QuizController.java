@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import org.springframework.security.access.prepost.PreAuthorize;
+
 @RestController
 @RequestMapping("/api/quizzes")
 @RequiredArgsConstructor
@@ -19,6 +21,7 @@ public class QuizController {
     private final QuizService quizService;
 
     @PostMapping
+    @PreAuthorize("hasAnyRole('INSTRUCTOR', 'TEACHER', 'ADMIN')")
     public ResponseEntity<QuizResponse> createQuiz(@Valid @RequestBody QuizRequest request) {
         return new ResponseEntity<>(quizService.createQuiz(request), HttpStatus.CREATED);
     }
@@ -39,11 +42,13 @@ public class QuizController {
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize("hasAnyRole('INSTRUCTOR', 'TEACHER', 'ADMIN')")
     public ResponseEntity<QuizResponse> updateQuiz(@PathVariable Long id, @Valid @RequestBody QuizRequest request) {
         return ResponseEntity.ok(quizService.updateQuiz(request, id));
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAnyRole('INSTRUCTOR', 'TEACHER', 'ADMIN')")
     public ResponseEntity<Void> deleteQuiz(@PathVariable Long id) {
         quizService.deleteQuiz(id);
         return ResponseEntity.noContent().build();

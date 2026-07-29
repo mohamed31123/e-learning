@@ -13,9 +13,12 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import org.springframework.security.access.prepost.PreAuthorize;
+
 @RestController
 @RequestMapping("/api/v1/progress")
 @RequiredArgsConstructor
+@PreAuthorize("hasAnyRole('LEARNER', 'STUDENT', 'ADMIN', 'INSTRUCTOR', 'TEACHER')")
 public class ProgressController {
     private final ProgressService progressService;
 

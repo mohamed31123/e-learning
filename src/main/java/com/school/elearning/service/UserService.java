@@ -18,11 +18,13 @@ import java.util.List;
 public class UserService {
     private final UserRepository userRepository;
     private final UserMapper userMapper;
-
-
+    private final org.springframework.security.crypto.password.PasswordEncoder passwordEncoder;
 
     public UserResponse createUser(UserRequest userRequest) {
         User user = userMapper.toEntity(userRequest);
+        if (user.getPassword() != null && !user.getPassword().isBlank()) {
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
+        }
         User savedUser = userRepository.save(user);
         return userMapper.toResponse(savedUser);
     }
@@ -46,6 +48,9 @@ public class UserService {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new RessourceNotFoundException("User not found with id: " + id));
         userMapper.updateUser(userRequest, user);
+        if (userRequest.password() != null && !userRequest.password().isBlank()) {
+            user.setPassword(passwordEncoder.encode(userRequest.password()));
+        }
         return userMapper.toResponse(user);
     }
 
