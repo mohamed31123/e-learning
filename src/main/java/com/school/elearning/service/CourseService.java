@@ -9,6 +9,8 @@ import com.school.elearning.mapper.CourseMapper;
 import com.school.elearning.repository.CourseRepository;
 import com.school.elearning.repository.ModelRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -64,10 +66,9 @@ public class CourseService {
     }
 
     @Transactional(readOnly = true)
-    public List<CourseResponse> findAllCourses() {
-        return courseRepository.findAll()
-                .stream()
-                .map(courseMapper::toResponse)
-                .toList();
+    public Page<CourseResponse> findAllCourses(Pageable pageable) {
+
+        return courseRepository.findAll(pageable)
+                .map(courseMapper::toResponse);
     }
 }
