@@ -5,6 +5,8 @@ import com.school.elearning.dto.response.CourseResponse;
 import com.school.elearning.service.CourseService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -29,8 +31,8 @@ public class CourseController {
     }
 
     @GetMapping
-    public List<CourseResponse> getAllCourses() {
-        return courseService.findAllCourses();
+    public ResponseEntity<Page<CourseResponse>> getAllCourses(Pageable pageable) {
+        return ResponseEntity.ok(courseService.findAllCourses(pageable));
     }
 
     @GetMapping("/{id}")
