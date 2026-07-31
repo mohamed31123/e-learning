@@ -33,7 +33,7 @@ pipeline {
         }
 
         failure {
-            echo 'Build failed!'
+            echo 'Build has been failed!'
         }
     }
 }
