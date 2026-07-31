@@ -1,39 +1,69 @@
 pipeline {
     agent any
 
+    tools {
+        jdk 'JDK21'
+        maven 'Maven3'
+    }
+
+    environment {
+        APP_NAME = 'e-learning'
+    }
+
     stages {
 
-
-
-        stage('Build') {
+        stage('Environment Check') {
             steps {
-            echo 'compiling ... !'
+                bat 'java -version'
+                bat 'mvn -version'
+            }
+        }
+
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
+
+        stage('Compile') {
+            steps {
+                echo 'Compiling application...'
                 bat 'mvn clean compile'
             }
         }
 
-        stage('Test') {
+        stage('Unit Tests') {
             steps {
-            echo 'Testing  .... ! '
+                echo 'Running tests...'
                 bat 'mvn test'
             }
         }
 
         stage('Package') {
             steps {
+                echo 'Packaging application...'
+                bat 'mvn clean package -DskipTests'
+            }
+        }
 
-                bat 'mvn package'
+        stage('Archive Artifact') {
+            steps {
+                archiveArtifacts artifacts: 'target/*.jar'
             }
         }
     }
 
     post {
         success {
-            echo 'Build completed successfully!'
+            echo 'Pipeline completed successfully!'
         }
 
         failure {
-            echo 'Build has been failed!'
+            echo 'Pipeline failed!'
+        }
+
+        always {
+            cleanWs()
         }
     }
 }
