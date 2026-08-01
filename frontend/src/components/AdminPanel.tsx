@@ -1,17 +1,15 @@
 import React, { useState } from 'react';
 import { 
   Users, 
-  BookOpen, 
   Plus, 
   Search, 
   Trash2, 
   Edit2, 
-  CheckCircle2, 
   ShieldAlert,
   Activity,
   Layers
 } from 'lucide-react';
-import { LearningPath, User } from '../types';
+import type { LearningPath, User } from '../types';
 
 interface AdminPanelProps {
   paths: LearningPath[];
@@ -19,7 +17,7 @@ interface AdminPanelProps {
 }
 
 export const AdminPanel: React.FC<AdminPanelProps> = ({ paths, onAddNewPath }) => {
-  const [usersList, setUsersList] = useState<User[]>([
+  const [usersList] = useState<User[]>([
     { id: 1, fullName: 'Alex Rivera', email: 'alex.rivera@eduflow.io', role: 'INSTRUCTOR' },
     { id: 2, fullName: 'Sarah Chen', email: 'sarah.chen@eduflow.io', role: 'INSTRUCTOR' },
     { id: 3, fullName: 'Marcus Vance', email: 'marcus.vance@company.org', role: 'LEARNER' },

@@ -4,13 +4,12 @@ import {
   Compass, 
   Award, 
   CheckCircle2, 
-  Settings, 
   ShieldCheck, 
   Sparkles, 
   LogOut,
   ChevronRight
 } from 'lucide-react';
-import { User } from '../types';
+import type { User } from '../types';
 
 interface SidebarProps {
   currentTab: string;
@@ -94,7 +93,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentTab, setCurrentTab, cur
             <img 
               src={currentUser.avatarUrl} 
               alt={currentUser.fullName} 
-              className="w-9 h-9 rounded-full object-cover ring-2 ring-indigo-500/50" 
+              className="w-9 h-9 min-w-9 min-h-9 max-w-9 max-h-9 rounded-full object-cover shrink-0 ring-2 ring-indigo-500/50" 
             />
             <div className="text-left">
               <p className="text-xs font-bold text-white leading-tight">{currentUser.fullName}</p>
