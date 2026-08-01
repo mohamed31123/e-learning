@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { HelpCircle, CheckCircle2, XCircle, ArrowLeft, RotateCcw, Award } from 'lucide-react';
 import confetti from 'canvas-confetti';
-import { Quiz } from '../types';
+import type { Quiz } from '../types';
 
 interface QuizEvaluationProps {
   quiz: Quiz;
@@ -79,9 +79,6 @@ export const QuizEvaluation: React.FC<QuizEvaluationProps> = ({
       {/* Questions list */}
       <div className="space-y-6">
         {quiz.questions.map((question, qIdx) => {
-          const userChoice = selectedAnswers[question.id];
-          const isCorrect = userChoice === question.correctOptionIndex;
-
           return (
             <div
               key={question.id}

@@ -6,12 +6,11 @@ import {
   FileText, 
   HelpCircle, 
   Clock, 
-  Award, 
   ArrowLeft,
   ChevronRight,
   Share2
 } from 'lucide-react';
-import { LearningPath } from '../types';
+import type { LearningPath } from '../types';
 
 interface PathDetailCurriculumProps {
   path: LearningPath;

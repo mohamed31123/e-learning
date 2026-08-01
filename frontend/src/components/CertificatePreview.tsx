@@ -1,6 +1,6 @@
 import React from 'react';
-import { Award, CheckCircle2, Download, Share2, ArrowLeft, ShieldCheck } from 'lucide-react';
-import { CertificateData } from '../types';
+import { Download, Share2, ArrowLeft, ShieldCheck } from 'lucide-react';
+import type { CertificateData } from '../types';
 
 interface CertificatePreviewProps {
   certificate: CertificateData;

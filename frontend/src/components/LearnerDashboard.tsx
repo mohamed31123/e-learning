@@ -1,6 +1,6 @@
 import React from 'react';
-import { Search, Bell, Clock, BookOpen, Star, PlayCircle, ArrowRight, TrendingUp } from 'lucide-react';
-import { LearningPath, User } from '../types';
+import { Search, Bell, Clock, BookOpen, Star, PlayCircle, ArrowRight, TrendingUp, CheckCircle2 } from 'lucide-react';
+import type { LearningPath, User } from '../types';
 
 interface LearnerDashboardProps {
   paths: LearningPath[];

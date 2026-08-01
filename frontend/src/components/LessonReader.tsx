@@ -6,11 +6,9 @@ import {
   FileText, 
   Download, 
   FolderArchive, 
-  ChevronRight,
-  MessageSquare,
   CheckCircle2
 } from 'lucide-react';
-import { Lesson, LearningPath } from '../types';
+import type { Lesson, LearningPath } from '../types';
 
 interface LessonReaderProps {
   path: LearningPath;

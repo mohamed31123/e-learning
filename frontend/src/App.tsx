@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Sidebar } from './components/Sidebar';
 import { LearnerDashboard } from './components/LearnerDashboard';
 import { PathDetailCurriculum } from './components/PathDetailCurriculum';
@@ -8,7 +8,7 @@ import { CertificatePreview } from './components/CertificatePreview';
 import { AdminPanel } from './components/AdminPanel';
 
 import { mockLearningPaths, mockCurrentUser } from './mockData';
-import { LearningPath, CertificateData } from './types';
+import type { LearningPath, CertificateData } from './types';
 
 export function App() {
   const [currentTab, setCurrentTab] = useState<string>('dashboard');

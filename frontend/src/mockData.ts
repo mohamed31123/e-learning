@@ -1,4 +1,4 @@
-import { LearningPath, User } from './types';
+import type { LearningPath, User } from './types';
 
 export const mockCurrentUser: User = {
   id: 1,
