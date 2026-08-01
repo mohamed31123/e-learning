@@ -13,6 +13,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+//Responsable class for user loading from database 
 public class CustomUserDetailsService implements UserDetailsService {
 
     private final UserRepository userRepository;
